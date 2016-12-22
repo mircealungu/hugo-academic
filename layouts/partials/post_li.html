@@ -1,3 +1,4 @@
+<!-- this seems to be the listing on the homepage! -->
 {{ $post := .post }}
 {{ $page := .page }}
 
@@ -15,15 +16,17 @@
   <div class="article-style" itemprop="articleBody">
     {{ if $post.Params.summary }}
     <p>{{ printf "%s" $post.Params.summary | markdownify }}</p>
+    <p class="read-more">
+      <a href="{{ $post.Permalink }}" class="btn btn-primary btn-outline">
+        {{ with $page.Params.str_read_more }}{{ . | markdownify }}{{ end }}
+      </a>
+    </p>
+    
     {{ else if $post.Truncated }}
     {{ $post.Summary }}
     {{ else }}
     {{ $post.Content }}
     {{ end }}
+
   </div>
-  <p class="read-more">
-    <a href="{{ $post.Permalink }}" class="btn btn-primary btn-outline">
-      {{ with $page.Params.str_read_more }}{{ . | markdownify }}{{ end }}
-    </a>
-  </p>
 </div>
